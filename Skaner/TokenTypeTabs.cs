@@ -15,8 +15,8 @@ namespace Scanner
         public static readonly string[] UnaryFrontOperators = { "-", "!", "~", "++", "--" };
         public static readonly string[] UnaryBackOperators = { "++", "--" };
         public static readonly string[] BinaryOperators = 
-            { "+", "-", "*", "/", "%", "<", ">", "&", "|", "^",
-            "&&", "||", "+=", "==", "-=", "*=", "/=", "%=", "<=",
+            { ",", "+", "-", "*", "/", "%", "<", ">", "&", "|", "^",
+            "&&", "||", "=", "+=", "==", "-=", "*=", "/=", "%=", "<=",
             ">=", "&=", "|=", "!=", "~=","<<", "<<=", ">>", ">>=" };
         public static readonly string[] Keywords =
             { "auto",  "double", "int", "struct",
