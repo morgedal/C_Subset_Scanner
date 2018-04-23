@@ -8,43 +8,56 @@ using System.Threading.Tasks;
 
 namespace Scanner
 {
+    /****************************************************************
+     *  USAGE: 
+     *  args[0] - path to source code
+     *  args[1] - path to destination html file
+     ****************************************************************/
     public class Program
     {
-        const string HPATH = @"C:\Users\Maciek\Documents\test.txt";
-        static List<char> list = new List<char>();
-        static List<KeyValuePair<string, ETokenType>> Tokens = new List<KeyValuePair<string, ETokenType>>();
+        
+        
 
         public static void Main(string[] args)
         {
-            var code = LoadSourceCode( HPATH );
+            string sourcePath = args[0];
+            string destinationPath = args[1];
+
+            List<char> Chars = new List<char>();
+            List<KeyValuePair<string, ETokenType>> Tokens = new List<KeyValuePair<string, ETokenType>>();
+
+            var code = LoadSourceCode( sourcePath );
             int index = 0;
-            list.Add( code[index++] );
+            Chars.Add( code[index++] );
 
             while (index < code.Length)
             {
                 var next = code[index++];
                 ETokenType tokenType;
-                if (MayBeToken(list, next, out tokenType))
+                if (MayBeToken(Chars, next, out tokenType))
                 {
-                    list.Add(next);
+                    Chars.Add(next);
                     continue;
                 }
-                else if (IsToken(list, out tokenType))
+                else if (IsToken(Chars, out tokenType))
                 {
-                    Tokens.Add(new KeyValuePair<string, ETokenType>(GetString(list), tokenType));
+                    Tokens.Add(new KeyValuePair<string, ETokenType>(GetString(Chars), tokenType));
                     index--;
                 }
                 else
-                    Tokens.Add(new KeyValuePair<string, ETokenType>(GetString(list), ETokenType.E_ERROR));
+                    Tokens.Add(new KeyValuePair<string, ETokenType>(GetString(Chars), ETokenType.E_ERROR));
 
-                list.Clear();
+                Chars.Clear();
             }
 
-            foreach (var token in Tokens.Where( x => x.Value != ETokenType.E_EMPTY ) )
-                Console.WriteLine("{0} -> {1}", token.Key, token.Value.ToString());
-            Console.ReadKey();
+            //foreach (var token in Tokens.Where( x => x.Value != ETokenType.E_EMPTY ) )
+            //    Console.WriteLine("{0} -> {1}", token.Key, token.Value.ToString());
+            //Console.ReadKey();
+
+            HTMLBuilder.Build(Tokens, destinationPath);
 
         }
+        
 
         private static string GetString(List<char> list)
         {
