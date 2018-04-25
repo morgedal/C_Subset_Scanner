@@ -8,26 +8,26 @@ namespace Scanner
 {
     public class HTMLBuilder
     {
-        public static void Build(List<KeyValuePair<string, ETokenType>> tokens, string path )
+        public static void Build( List<KeyValuePair<string, ETokenType>> tokens, string path )
         {
-            var preparedString = PrepareString(tokens);
+            var preparedString = PrepareString( tokens );
 
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter( path, false ))
-            {
+            using ( System.IO.StreamWriter file = new System.IO.StreamWriter( path, false ) )
                 file.Write( preparedString );
-            }
         }
 
-        private static string PrepareString(List<KeyValuePair<string, ETokenType>> tokens)
+        private static string PrepareString( List<KeyValuePair<string, ETokenType>> tokens )
         {
             StringBuilder builder = new StringBuilder();
             
             foreach( var token in tokens )
             {
-                if (token.Value == ETokenType.E_EMPTY && (token.Key == "\n" || token.Key == "\r\n"))
-                    builder.Append("<br>");
-                if (token.Value == ETokenType.E_EMPTY && token.Key == " ")
-                    builder.Append("&nbsp;");
+                if ( token.Value == ETokenType.E_EMPTY && ( token.Key == "\n" || token.Key == "\r\n" ) )
+                    builder.Append( "<br>" );
+                if ( token.Value == ETokenType.E_EMPTY && token.Key == " " )
+                    builder.Append( "&nbsp;" );
+                if (token.Value == ETokenType.E_ERROR)
+                    builder.Append(String.Format("<font color={0}>ERROR{1}</font>", GetColorForToken(token.Value), token.Key));
                 else
                     builder.Append(String.Format("<font color={0}>{1}</font>", GetColorForToken(token.Value), token.Key));
             }
