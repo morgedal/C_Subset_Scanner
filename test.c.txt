@@ -1,0 +1,23 @@
+int main( void )
+{
+    int jakisIdentyfikator;
+    const char[] jakisString = "przyklad";
+    double jakisInnyIdentyfikator;
+
+    jakisInnyIdentyfikator = 3.14 * (5.1532 + 2) * ( 0 / 3 )
+    jakisIdentyfikator = -2 * (int)jakisInnyIdentyfikator;
+    wywolanieFunkcji( jakisString );
+
+    $phpowa_zla_zmienna;
+    
+    return !1;
+}
+
+/*******************************************************
+ * Jakas niesamowita dokumentacja w 
+ * komentarzu 1 < 2
+********************************************************/
+void wywolanieFunkcji( const char[] nazwaStringa )
+{
+    printf( "String o nazwie %s\n", nazwaStringa );
+} 
